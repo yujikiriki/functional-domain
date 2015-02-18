@@ -2,44 +2,37 @@ package co.s4n.comision
 
 import scala.util.Try
 
-
 sealed trait EstadoComision
-case class Liquidada() extends EstadoComision
-case class Anulada() extends EstadoComision
-case class Aprobada() extends EstadoComision
-case class Facturada() extends EstadoComision
 
-sealed trait TipoDocumento
-case object CedulaCiudadania extends TipoDocumento
+case class Nueva( ) extends EstadoComision
 
-case class Comision(
-                     id: Option[Long],
-                     tipDocumentoDeudor: TipoDocumento,
-                     valorComision: Long,
-                     iva: Long,
-                     total: Long,
-                     estado: EstadoComision
-                     )
+case class Liquidada( ) extends EstadoComision
 
-class ComisionServices[ State <: EstadoComision ] {
+case class Anulada( ) extends EstadoComision
 
-  def liquidar( c: Comision ): Try[Comision] = Try {
-    c.copy( estado = Liquidada() )
+case class Aprobada( ) extends EstadoComision
+
+case class Facturada( ) extends EstadoComision
+
+case class Comision[State <: EstadoComision]( id: Option[Long], valorComision: Long, iva: Long, estado: State )
+
+trait ComisionServices {
+
+  def liquidar( c: Comision[Nueva] ): Try[Comision[Liquidada]] = Try {
+    c.copy( estado = Liquidada( ) )
   }
 
-  def anular[ T >: State <: Liquidada ]( c: Comision ): Try[Comision] = Try {
-    c.copy( estado = Anulada() )
+  def anular( c: Comision[Liquidada] ): Try[Comision[Anulada]] = Try {
+    c.copy( estado = Anulada( ) )
   }
 
-  def aprobar[ T >: State <: Liquidada ]( c: Comision ): Try[Comision] = Try {
-    c.copy( estado = Aprobada() )
+  def aprobar( c: Comision[Liquidada] ): Try[Comision[Aprobada]] = Try {
+    c.copy( estado = Aprobada( ) )
   }
 
-  def facturar[ T >: State <: Aprobada ]( c: Comision ): Try[Comision] = Try {
-    c.copy( estado = Facturada() )
+  def facturar( c: Comision[Aprobada] ): Try[Comision[Facturada]] = Try {
+    c.copy( estado = Facturada( ) )
   }
 }
 
-object ComisionServices {
-  def create(): ComisionServices[Liquidada] = new ComisionServices[Liquidada]
-}
+object ComisionServices extends ComisionServices

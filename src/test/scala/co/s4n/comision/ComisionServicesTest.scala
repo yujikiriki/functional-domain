@@ -13,7 +13,21 @@ class ComisionServicesTest extends FunSuite {
     assert( true )
   }
 
-  test( "Functional composition" ) {
+  test( "Functional composition: flatMap" ) {
+    import ComisionServices._
+
+    val comisionProcesada: Try[Comision[Facturada]] =
+      liquidar( c )
+        .flatMap( aprobar( _ )
+        .flatMap( facturar( _ ) ) )
+
+    comisionProcesada match {
+      case Success( procesada ) => assert( procesada.estado == Facturada( ) )
+      case Failure( ex ) => fail( ex )
+    }
+  }
+
+  test( "Functional composition: for-comprehension" ) {
     import ComisionServices._
 
     val comisionProcesada: Try[Comision[Facturada]] = for {
@@ -27,4 +41,5 @@ class ComisionServicesTest extends FunSuite {
       case Failure( ex ) => fail( ex )
     }
   }
+
 }

@@ -18,20 +18,32 @@ case class Comision[State <: EstadoComision]( id: Option[Long], valorComision: L
 
 trait ComisionServices {
 
-  def liquidar( c: Comision[Nueva] ): Try[Comision[Liquidada]] = Try {
-    c.copy( estado = Liquidada( ) )
+  val liquidar: Comision[Nueva] => Try[Comision[Liquidada]] = {
+    c =>
+      Try {
+        c.copy( estado = Liquidada( ) )
+      }
   }
 
-  def anular( c: Comision[Liquidada] ): Try[Comision[Anulada]] = Try {
-    c.copy( estado = Anulada( ) )
+  val anular: Comision[Liquidada] => Try[Comision[Anulada]] = {
+    c =>
+      Try {
+        c.copy( estado = Anulada( ) )
+      }
   }
 
-  def aprobar( c: Comision[Liquidada] ): Try[Comision[Aprobada]] = Try {
-    c.copy( estado = Aprobada( ) )
+  val aprobar: Comision[Liquidada] => Try[Comision[Aprobada]] = {
+    c =>
+      Try {
+        c.copy( estado = Aprobada( ) )
+      }
   }
 
-  def facturar( c: Comision[Aprobada] ): Try[Comision[Facturada]] = Try {
-    c.copy( estado = Facturada( ) )
+  val facturar: Comision[Aprobada] => Try[Comision[Facturada]] = {
+    c =>
+      Try {
+        c.copy( estado = Facturada( ) )
+      }
   }
 }
 

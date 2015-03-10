@@ -5,16 +5,16 @@ import org.scalatest.FunSuite
 
 class TransformableTest extends FunSuite {
 
-  test( "Basic type test" ) {
-    import TransformableDefaults._
+  val c = new Comision(
+    id = None,
+    valorComision = 1l,
+    iva = 1l,
+    Nueva( ),
+    new Cliente( "CC1234567", "Pepito" )
+  )
 
-    val c = new Comision(
-      id = None,
-      valorComision = 1l,
-      iva = 1l,
-      Nueva( ),
-      new Cliente( "CC1234567", "Pepito" )
-    )
+  test( "Basic transformation Entity to Record test" ) {
+    import TransformableDefaults._
 
     val record: (ComisionRecord, ClienteRecord) = Transformer.toRecord( c )
     assert( "CC1234567" === record._2.id )

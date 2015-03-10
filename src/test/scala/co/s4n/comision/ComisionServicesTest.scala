@@ -1,15 +1,15 @@
 package co.s4n.comision
 
 import org.scalatest.FunSuite
-
 import scala.util.{Failure, Success, Try}
+import co.s4n.comision.domain._
 
 class ComisionServicesTest extends FunSuite {
 
-  val c = Comision( id = None, valorComision = 1l, iva = 1l, Nueva( ) )
+  val c: Comision[Nueva] = new Comision( id = None, valorComision = 1l, iva = 1l, Nueva( ), new Cliente( "CC1234567", "Pepito" ) )
 
-  test( "Typing example" ) {
-    //val facturar = ComisionServices.facturar( c ) // <= No compila.
+  ignore( "Typing example" ) {
+//    val facturar = ComisionServices.facturar( c ) // <= No compila.
     assert( true )
   }
 

@@ -1,22 +1,9 @@
 package co.s4n.comision
 
-import scala.util.Try
-
-sealed trait EstadoComision
-
-case class Nueva( ) extends EstadoComision
-
-case class Liquidada( ) extends EstadoComision
-
-case class Anulada( ) extends EstadoComision
-
-case class Aprobada( ) extends EstadoComision
-
-case class Facturada( ) extends EstadoComision
-
-case class Comision[State <: EstadoComision]( id: Option[Long], valorComision: Long, iva: Long, estado: State )
+import co.s4n.comision.domain._
 
 trait ComisionServices {
+  import scala.util.Try
 
   val liquidar: Comision[Nueva] => Try[Comision[Liquidada]] = {
     c =>

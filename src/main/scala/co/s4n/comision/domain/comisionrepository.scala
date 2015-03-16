@@ -21,13 +21,14 @@ object ComisionRepository {
       (comisionRecord, clienteRecord)
     }
   }
+  
 }
 
 class ComisionRepository extends Repository[Comision[EstadoComision]] {
   import co.s4n.comision.domain.ComisionRepository._
 
-  private val clienteDAO = new ClienteDAO()
   private val comisionDAO = new ComisionDAO()
+  private val clienteDAO = new ClienteDAO()
 
   override def add( entity: Comision[EstadoComision] ): Long = {
     val r: (ComisionRecord, ClienteRecord) = Transformer.toRecord( entity )

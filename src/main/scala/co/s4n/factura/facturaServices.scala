@@ -14,6 +14,7 @@ final case class Causada( valor: Money ) extends EstadoFactura
 case class Factura[State <: EstadoFactura]( fecha: DateTime, idCliente: String, valor: Money, iva: Double, state: State )
 
 trait FacturaServices {
+  
   val anular: Factura[Nueva] => Try[Factura[Anulada]] = {
     facturaNueva =>
       Try( facturaNueva.copy( state = new Anulada( ) ) )
@@ -31,11 +32,9 @@ trait FacturaServices {
           1.0 + factura.iva,
           RoundingMode.CEILING
         )
-
         factura.copy( state = new Causada( valor ) )
       }
   }
-
 }
 
 object FacturaServices extends FacturaServices

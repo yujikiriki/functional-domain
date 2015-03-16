@@ -32,6 +32,7 @@ trait ComisionServices {
         c.copy( estado = Facturada( ) )
       }
   }
+
 }
 
 object ComisionServices extends ComisionServices

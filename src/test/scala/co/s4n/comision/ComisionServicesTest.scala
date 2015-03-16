@@ -9,7 +9,7 @@ class ComisionServicesTest extends FunSuite {
   val c: Comision[Nueva] = new Comision( id = None, valorComision = 1l, iva = 1l, Nueva( ), new Cliente( "CC1234567", "Pepito" ) )
 
   ignore( "Typing example" ) {
-//    val facturar = ComisionServices.facturar( c ) // <= No compila.
+    // val facturar = ComisionServices.facturar( c ) // <= No compila.
     assert( true )
   }
 

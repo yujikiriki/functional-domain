@@ -16,6 +16,7 @@ final case class Aprobada( ) extends EstadoComision
 
 final case class Facturada( ) extends EstadoComision
 
+// http://stackoverflow.com/questions/4531455/whats-the-difference-between-ab-and-b-in-scala/4531696#4531696
 case class Comision[+Estado <: EstadoComision]( id: Option[Long],
                                                valorComision: Long,
                                                iva: Long,
@@ -38,7 +39,7 @@ object Comision {
     )
   }
 
-  def cambiarResponsable[Estado <: EstadoComision](): LensFamily[Comision[EstadoComision], Comision[EstadoComision], String, String] =
+  def responsable[Estado <: EstadoComision](): LensFamily[Comision[EstadoComision], Comision[EstadoComision], String, String] =
     cambiarCliente andThen cambiarNombreCliente
 
 }

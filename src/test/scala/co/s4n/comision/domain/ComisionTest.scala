@@ -13,8 +13,9 @@ class ComisionTest extends FunSuite {
   )
 
   test( "Comision lens para cambiar Cliente" ) {
-    val cliente: String = Comision.cambiarResponsable.get( c )
-    val comision: Comision[EstadoComision] = Comision.cambiarResponsable.set( c, "Paquito" )
+    val cliente: String = Comision.responsable.get( c )
+    assert( "Pepito" === cliente )
+    val comision: Comision[EstadoComision] = Comision.responsable.set( c, "Paquito" )
     assert( "Paquito" === comision.cliente.nombre )
   }
 }

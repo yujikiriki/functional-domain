@@ -4,9 +4,9 @@ Este es un ejemplo simple de cómo enriquecer los diseños tácticos de DDDesign
 
 Se presenta la aplicación de:
 
-. ADT
-. Phantom typing
-. Type classes
-. Lenses 
-. Kleisli
-. Monoid
++ ADT
++ Phantom typing
++ Type classes
++ Lenses 
++ Kleisli
++ Monoid

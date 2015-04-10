@@ -1,6 +1,6 @@
 ### Ejemplo de un dominio condimentado con programación funcional
 
-Este es un ejemplo simple de cómo enriquecer los diseños tácticos de DDDesign con elementos meramente funcionales.
+Este es un ejemplo simple de cómo enriquecer los diseños tácticos de DDDesign con elementos funcionales.
 
 Se presenta la aplicación de:
 
@@ -10,3 +10,9 @@ Se presenta la aplicación de:
 + Lenses 
 + Kleisli
 + Monoid
++ Monad transformers
+
+Por terminar:
+
++ Dependent types
++ Applicative functors

@@ -7,6 +7,7 @@ object ComisionRepository {
 
   implicit def comisionTransformable[State <: EstadoComision] = new Transformable[Comision[State], (ComisionRecord, ClienteRecord)] {
     def toRecord( entity: Comision[State] ): (ComisionRecord, ClienteRecord) = {
+      
       val comisionRecord = new ComisionRecord(
         id = entity.id,
         valorComision = entity.valorComision,
@@ -14,10 +15,12 @@ object ComisionRepository {
         estado = entity.estado.toString,
         idCliente = entity.cliente.id
       )
+
       val clienteRecord = new ClienteRecord(
         id = entity.cliente.id,
         nombre = entity.cliente.nombre
       )
+      
       (comisionRecord, clienteRecord)
     }
   }

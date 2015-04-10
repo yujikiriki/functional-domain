@@ -38,4 +38,3 @@ trait FacturaServices {
 }
 
 object FacturaServices extends FacturaServices
-

@@ -36,7 +36,7 @@ class ComisionRepository extends Repository[Comision[EstadoComision]] {
   override def add( entity: Comision[EstadoComision] ): Long = {
     val r: (ComisionRecord, ClienteRecord) = Transformer.toRecord( entity )
     comisionDAO.insert( r._1 )
-    clienteDAO.insert( r._2 )
+    clienteDAO.insert( r._2 )    
   }
 
   override def get( id: Long ): Comision[EstadoComision] = ???

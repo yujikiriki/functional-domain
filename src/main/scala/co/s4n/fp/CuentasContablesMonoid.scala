@@ -1,5 +1,6 @@
 package co.s4n.fp
 
+import co.s4n.factura.{Nueva, Factura}
 import org.joda.money.{CurrencyUnit, Money}
 import scalaz.Monoid
 import scalaz.syntax.monoid._
@@ -11,10 +12,7 @@ trait CuentasContablesServices {
   def balanceDelTipo( tipo: String, cuentasDelDia: List[CuentaContable] )( implicit m: Monoid[Money] ): Money = {
     cuentasDelDia.
       filter( _.tipo == tipo )
-      .foldLeft( mzero[Money] ) {
-      ( acc, cuenta ) =>
-        acc |+| cuenta.valor
-    }
+      .foldLeft( mzero[Money] )( _ |+| _.valor )
   }
 
   def maximaCuentaDelTipo( tipo: String, cuentasDelDia: List[CuentaContable] )( implicit m: Monoid[Money] ): Money = {
@@ -28,11 +26,16 @@ trait CuentasContablesServices {
           acc
     }
   }
+
+  def balanceFacturas( facturas: List[Factura[Nueva]] )( implicit m: Monoid[Money] ): Money = {
+    facturas.foldLeft( mzero[Money] ) {
+      (acc, factura ) => acc |+| factura.valor
+    }
+  }
 }
 
 object CuentasContablesServices extends CuentasContablesServices {
 
-  /* TODO: Como hacer para que contemple todos los Currency y no tener que hacer uno por cada uno */
 //  implicit object USDMonoid extends Monoid[Money] {
 //    override def zero: Money = Money.zero( CurrencyUnit.USD )
 //    override def append( f1: Money, f2: => Money ): Money = f1 plus f2

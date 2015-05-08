@@ -2,37 +2,36 @@ package co.s4n.comision
 
 import co.s4n.comision.domain._
 
-trait ComisionServices {
+class ComisionServices extends ComisionRepositoryModule {
   import scala.util.Try
 
-  val liquidar: Comision[Nueva] => Try[Comision[Liquidada]] = {
-    c =>
-      Try {
-        c.copy( estado = Liquidada( ) )
-      }
+  def crear( c: Comision[Nueva] ): Comision[Nueva] = {
+    val id = comisionRepository.add( c )
+    c.copy( id = Some( id ) )
   }
 
-  val anular: Comision[Liquidada] => Try[Comision[Anulada]] = {
-    c =>
-      Try {
-        c.copy( estado = Anulada( ) )
-      }
+  def liquidar( c: Comision[Nueva] ): Try[Comision[Liquidada]] = {
+    Try {
+      c.copy( estado = Liquidada( ) )
+    }
   }
 
-  val aprobar: Comision[Liquidada] => Try[Comision[Aprobada]] = {
-    c =>
-      Try {
-        c.copy( estado = Aprobada( ) )
-      }
+  def anular( c: Comision[Liquidada] ): Try[Comision[Anulada]] = {
+    Try {
+      c.copy( estado = Anulada( ) )
+    }
   }
 
-  val facturar: Comision[Aprobada] => Try[Comision[Facturada]] = {
-    c =>
-      Try {
-        c.copy( estado = Facturada( ) )
-      }
+  def aprobar( c: Comision[Liquidada] ): Try[Comision[Aprobada]] = {
+    Try {
+      c.copy( estado = Aprobada( ) )
+    }
+  }
+
+  def facturar( c: Comision[Aprobada] ): Try[Comision[Facturada]] = {
+    Try {
+      c.copy( estado = Facturada( ) )
+    }
   }
 
 }
-
-object ComisionServices extends ComisionServices

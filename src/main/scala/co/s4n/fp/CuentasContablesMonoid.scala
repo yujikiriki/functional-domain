@@ -10,8 +10,8 @@ case class CuentaContable( tipo: String, valor: Money )
 trait CuentasContablesServices {
 
   def balanceDelTipo( tipo: String, cuentasDelDia: List[CuentaContable] )( implicit m: Monoid[Money] ): Money = {
-    cuentasDelDia.
-      filter( _.tipo == tipo )
+    cuentasDelDia
+      .filter( _.tipo == tipo )
       .foldLeft( mzero[Money] )( _ |+| _.valor )
   }
 
@@ -27,11 +27,9 @@ trait CuentasContablesServices {
     }
   }
 
-  def balanceFacturas( facturas: List[Factura[Nueva]] )( implicit m: Monoid[Money] ): Money = {
-    facturas.foldLeft( mzero[Money] ) {
-      (acc, factura ) => acc |+| factura.valor
-    }
-  }
+  def balanceFacturas( facturas: List[Factura[Nueva]] )( implicit m: Monoid[Money] ): Money =
+    facturas.foldLeft( mzero[Money] )( _ |+| _.valor )
+
 }
 
 object CuentasContablesServices extends CuentasContablesServices {

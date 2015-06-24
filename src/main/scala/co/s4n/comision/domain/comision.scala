@@ -25,6 +25,8 @@ case class Comision[+Estado <: EstadoComision]( id: Option[Long],
 
 object Comision {
 
+  type NombreCliente = String
+
   private def cambiarCliente[Estado <: EstadoComision](): Lens[Comision[EstadoComision], Cliente] = {
     Lens.lensu[Comision[EstadoComision], Cliente](
       set = ( comision, nuevoCliente ) => comision.copy( cliente = nuevoCliente ),
@@ -32,7 +34,9 @@ object Comision {
     )
   }
 
-  private def cambiarNombreCliente(): Lens[Cliente, String] = {
+
+
+  private def cambiarNombreCliente(): Lens[Cliente, NombreCliente] = {
     Lens.lensu[Cliente, String](
       set = ( cliente, nuevoNombre ) => cliente.copy( nombre = nuevoNombre ),
       get = ( cliente ) => cliente.nombre

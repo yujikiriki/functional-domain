@@ -16,9 +16,6 @@ class ReaderMonadDITest extends FunSuite {
     ()
   }
 
-  test( "for-comprenhension" ) {
-
-  }
 }
 
 case class User( id: Option[String], name: String )

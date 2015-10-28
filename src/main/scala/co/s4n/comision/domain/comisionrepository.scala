@@ -6,7 +6,7 @@ import ddd._
 object ComisionRepository {
 
   implicit def comisionTransformable[State <: EstadoComision] = new Transformable[Comision[State], (ComisionRecord, ClienteRecord)] {
-    def toRecord( entity: Comision[State] ): (ComisionRecord, ClienteRecord) = {
+    def toRecord(entity: Comision[State]): (ComisionRecord, ClienteRecord) = {
 
       val comisionRecord = new ComisionRecord(
         id = entity.id,
@@ -27,20 +27,20 @@ object ComisionRepository {
 
 }
 
-class ComisionRepository( comisionDAO: ComisionDAO, clienteDAO: ClienteDAO ) extends Repository[Comision[EstadoComision]] {
+class ComisionRepository(comisionDAO: ComisionDAO, clienteDAO: ClienteDAO) extends Repository[Comision[EstadoComision]] {
   import co.s4n.comision.domain.ComisionRepository._
 
-  override def add( entity: Comision[EstadoComision] ): Long = {
-    val r: (ComisionRecord, ClienteRecord) = Transformer.toRecord( entity )
-    comisionDAO.insert( r._1 )
-    clienteDAO.insert( r._2 )
+  override def add(entity: Comision[EstadoComision]): Long = {
+    val r: (ComisionRecord, ClienteRecord) = Transformer.toRecord(entity)
+    comisionDAO.insert(r._1)
+    clienteDAO.insert(r._2)
   }
 
-  override def get( id: Long ): Comision[EstadoComision] = ???
+  override def get(id: Long): Comision[EstadoComision] = ???
 
-  override def remove( entity: Comision[EstadoComision] ): Long = ???
+  override def remove(entity: Comision[EstadoComision]): Long = ???
 
-  override def list( ): List[Comision[EstadoComision]] = ???
+  override def list(): List[Comision[EstadoComision]] = ???
 }
 
 trait ComisionRepositoryModule {

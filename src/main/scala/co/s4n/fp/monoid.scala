@@ -11,28 +11,28 @@ package co.s4n.fp
 */
 
 trait Monoide[A] {
-  def append( f1: A, f2: => A ): A
+  def append(f1: A, f2: => A): A
   def zero: A
 }
 
 object BooleanMonoid {
 
   implicit val booleanAndMonoid: Monoide[Boolean] = new Monoide[Boolean] {
-    override def append( f1: Boolean, f2: => Boolean ): Boolean =
+    override def append(f1: Boolean, f2: => Boolean): Boolean =
       f1 && f2
 
     override def zero: Boolean = true
   }
 
   implicit val booleanOrMonoid: Monoide[Boolean] = new Monoide[Boolean] {
-    override def append( f1: Boolean, f2: => Boolean ): Boolean =
+    override def append(f1: Boolean, f2: => Boolean): Boolean =
       f1 || f2
 
     override def zero: Boolean = false
   }
 
   implicit val booleanXORMonoid: Monoide[Boolean] = new Monoide[Boolean] {
-    override def append( f1: Boolean, f2: => Boolean ): Boolean =
+    override def append(f1: Boolean, f2: => Boolean): Boolean =
       (f1 && !f2) || (!f1 && f2)
 
     override def zero: Boolean = false
@@ -40,11 +40,10 @@ object BooleanMonoid {
 
 }
 
-
 object SetMonoid {
 
   implicit def setUnionMonoid[T] = new Monoide[Set[T]] {
-    override def append( f1: Set[T], f2: => Set[T] ): Set[T] =
+    override def append(f1: Set[T], f2: => Set[T]): Set[T] =
       f1 union f2
 
     override def zero: Set[T] = Set.empty[T]
@@ -52,12 +51,11 @@ object SetMonoid {
 
 }
 
-
 object SuperAdder {
   import scalaz.Monoid
   import scalaz.syntax.monoid._
 
-  def add[A]( items: List[A] )(implicit m: Monoid[A]): A =
-    items.foldLeft( mzero[A] ) { _ |+| _ }
+  def add[A](items: List[A])(implicit m: Monoid[A]): A =
+    items.foldLeft(mzero[A]) { _ |+| _ }
 
 }

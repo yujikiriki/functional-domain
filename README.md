@@ -14,5 +14,6 @@ Se presenta la aplicación de:
 
 Por terminar:
 
++ Free monad
 + Dependent types
 + Applicative functors

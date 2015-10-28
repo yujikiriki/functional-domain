@@ -11,21 +11,21 @@ class ComisionRepositoryTest extends FunSuite with MockitoSugar {
     id = None,
     valorComision = 1l,
     iva = 1l,
-    Nueva( ),
-    new Cliente( "", "" )
+    Nueva(),
+    new Cliente("", "")
   )
 
-  test( "Mocked DI test" ) {
+  test("Mocked DI test") {
     val comisionDAO = mock[ComisionDAO]
-    when( comisionDAO.insert( ComisionRecord( None, 1l, 1l, "", "" ) ) ).thenReturn( 2l )
+    when(comisionDAO.insert(ComisionRecord(None, 1l, 1l, "", ""))).thenReturn(2l)
 
     val clienteDAO = mock[ClienteDAO]
-    when( clienteDAO.insert( ClienteRecord( "", "" ) ) ).thenReturn( 2l )
+    when(clienteDAO.insert(ClienteRecord("", ""))).thenReturn(2l)
 
-    val repo = new ComisionRepository( comisionDAO, clienteDAO )
-    val res: Long = repo.add( c )
-    info( s"res = $res" )
-    assert( 2L === res )
+    val repo = new ComisionRepository(comisionDAO, clienteDAO)
+    val res: Long = repo.add(c)
+    info(s"res = $res")
+    assert(2L === res)
   }
 
 }
